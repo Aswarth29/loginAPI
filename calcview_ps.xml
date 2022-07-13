@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="PERFORMANCE_SALARIES" applyPrivilegeType="NONE" dataCategory="CUBE" schemaVersion="3.0" outputViewType="Aggregation" cacheInvalidationPeriod="NONE" enforceSqlExecution="true">
+<descriptions defaultDescription="PERFORMANCE_SALARIES"/>
+<localVariables/>
+<variableMappings/>
+<dataSources>
+  <DataSource id="V_SALARIES">
+    <resourceUri>V_SALARIES</resourceUri>
+  </DataSource>
+  <DataSource id="PERFORMANCE">
+    <resourceUri>PERFORMANCE</resourceUri>
+  </DataSource>
+</dataSources>
+<calculationViews>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_1" cardinality="C1_1" joinType="inner">
+    <viewAttributes>
+      <viewAttribute id="ID" aggregationType="sum"/>
+      <viewAttribute id="SALARY" aggregationType="sum"/>
+
+      <viewAttribute id="START_YEAR" aggregationType="sum"/>
+      <viewAttribute id="GENDER"/>
+      <viewAttribute id="REGION"/>
+      <viewAttribute id="T_LEVEL"/>
+      <viewAttribute id="EVALUATION_RATING" aggregationType="sum"/>
+      <viewAttribute id="REPORTS_TO" aggregationType="sum"/>
+      <viewAttribute id="FEEDBACK_COMMENT"/>
+      <viewAttribute id="SATISFACTION_INDEX" aggregationType="sum"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="V_SALARIES">
+      <mapping xsi:type="Calculation:AttributeMapping" target="ID" source="ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="SALARY" source="SALARY"/>
+
+      <mapping xsi:type="Calculation:AttributeMapping" target="START_YEAR" source="START_YEAR"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="GENDER" source="GENDER"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REGION" source="REGION"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="T_LEVEL" source="T_LEVEL"/>
+    </input>
+    <input node="PERFORMANCE">
+      <mapping xsi:type="Calculation:AttributeMapping" target="EVALUATION_RATING" source="EVALUATION_RATING"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REPORTS_TO" source="REPORTS_TO"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="FEEDBACK_COMMENT" source="FEEDBACK_COMMENT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="SATISFACTION_INDEX" source="SATISFACTION_INDEX"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="ID" source="ID"/>
+    </input>
+    <joinAttribute name="ID"/>
+  </calculationView>
+<!--  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">-->
+<!--    <viewAttributes/>-->
+<!--    <calculatedViewAttributes/>-->
+<!--  </calculationView>-->
+</calculationViews>
+
+<logicalModel id="Join_1">
+  <attributes>
+    <attribute id="ID" order="1" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="ID"/>
+      <keyMapping columnObjectName="Join_1" columnName="ID"/>
+    </attribute>
+    <attribute id="START_YEAR" order="3" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="START_YEAR"/>
+      <keyMapping columnObjectName="Join_1" columnName="START_YEAR"/>
+    </attribute>
+    <attribute id="GENDER" order="4" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="GENDER"/>
+      <keyMapping columnObjectName="Join_1" columnName="GENDER"/>
+    </attribute>
+
+    <attribute id="REGION" order="5" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="REGION"/>
+
+      <keyMapping columnObjectName="Join_1" columnName="REGION"/>
+
+    </attribute>
+    <attribute id="T_LEVEL" order="6" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="T_LEVEL"/>
+      <keyMapping columnObjectName="Join_1" columnName="T_LEVEL"/>
+    </attribute>
+    <attribute id="REPORTS_TO" order="8" semanticType="empty" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="REPORTS_TO"/>
+      <keyMapping columnObjectName="Join_1" columnName="REPORTS_TO"/>
+    </attribute>
+    <attribute id="FEEDBACK_COMMENT" order="9" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="FEEDBACK_COMMENT"/>
+      <keyMapping columnObjectName="Join_1" columnName="FEEDBACK_COMMENT"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes/>
+  <baseMeasures>
+    <measure id="SALARY" order="2" aggregationType="avg" measureType="simple">
+      <descriptions defaultDescription="SALARY"/>
+      <measureMapping columnObjectName="Join_1" columnName="SALARY"/>
+    </measure>
+    <measure id="EVALUATION_RATING" order="7" aggregationType="avg" measureType="simple">
+      <descriptions defaultDescription="EVALUATION_RATING"/>
+      <measureMapping columnObjectName="Join_1" columnName="EVALUATION_RATING"/>
+    </measure>
+    <measure id="SATISFACTION_INDEX" order="10" aggregationType="avg" measureType="simple">
+      <descriptions defaultDescription="SATISFACTION_INDEX"/>
+      <measureMapping columnObjectName="Join_1" columnName="SATISFACTION_INDEX"/>
+    </measure>
+  </baseMeasures>
+  <calculatedMeasures/>
+  <restrictedMeasures/>
+  <localDimensions/>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="40" y="85"/>
+    </shape>
+
+
+    <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="100" y="225"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape modelObjectName="V_SALARIES" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="18" y="29"/>
+      <rectangleSize width="157"/>
+    </shape>
+    <shape modelObjectName="PERFORMANCE" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="208"/>
+    </shape>
+
+    <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="90" y="205"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>
